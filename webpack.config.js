@@ -5,40 +5,21 @@ const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-
-    context: `${__dirname}/src/`,
-
-    entry: {
-        BasePlugin: './main.js',
-        'BasePlugin.min': './main.js'
-    },
-
+    mode: "development",
+    devtool: "inline-source-map",
+    entry: "./src/main.ts",
     output: {
-        path: `${__dirname}/dist/`,
-        filename: '[name].js',
-        library: 'BasePlugin',
-        libraryTarget: 'umd',
-        umdNamedDefine: true
+        filename: "AnimChar.js"
     },
-
-    plugins: [
-
-        new UglifyJSPlugin({
-            include: /\.min\.js$/,
-            parallel: true,
-            sourceMap: false,
-            uglifyOptions: {
-                compress: true,
-                ie8: false,
-                ecma: 5,
-                output: {
-                    comments: false
-                },
-                warnings: false
-            },
-            warningsFilter: (src) => false
-        })
-
-    ]
-
+    resolve: {
+        // Add `.ts` and `.tsx` as a resolvable extension.
+        extensions: [".ts", ".js"]
+    },
+    module: {
+        rules: [
+            // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+            { test: /\.tsx?$/, loader: "ts-loader" }
+        ]
+    }
 };
+
