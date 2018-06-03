@@ -2,7 +2,7 @@
   "name": "poser",
   "version": "0.0.1",
   "description": "Phaser 3 Scene that creates an animated character",
-  "main": "src/main.js",
+  "main": "dist/AnimChar.js",
   "scripts": {
     "dev": "webpack --mode='development' -w",
     "demo": "tsc demo/index.ts --module 'amd' -w --outFile 'demo/app.js'"
