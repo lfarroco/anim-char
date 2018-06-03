@@ -18,13 +18,6 @@ class AnimChar extends Phaser.Scene {
     body: Phaser.GameObjects.Sprite;
     head: Phaser.GameObjects.Sprite;
 
-    create() {
-
-    }
-    boot(){
-        console.log('boot!')
-    }
-
     render(config:AnimCharConfig) {
 
         let graphics = this.add.graphics();

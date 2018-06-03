@@ -1,22 +1,22 @@
 {
-  "name": "anim-char",
+  "name": "poser",
   "version": "0.0.1",
-  "description": "Phaser 3 Plugin with an animated character",
+  "description": "Phaser 3 Scene that creates an animated character",
   "main": "src/main.js",
   "scripts": {
-    "dev": "webpack --mode=\"development\" -w",
-    "demo": "tsc demo/index.ts --module \"amd\" -w"
+    "dev": "webpack --mode='development' -w",
+    "demo": "tsc demo/index.ts --module 'amd' -w --outFile 'demo/app.js'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/photonstorm/phaser3-plugin-template.git"
+    "url": "git+https://github.com/lfarroco/poser.git"
   },
   "author": "Leonardo Farroco",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/photonstorm/phaser3-plugin-template/issues"
+    "url": "https://github.com/lfarroco/poser/issues"
   },
-  "homepage": "https://github.com/photonstorm/phaser3-plugin-template#readme",
+  "homepage": "https://github.com/lfarroco/poser#readme",
   "devDependencies": {
     "webpack": "^3.10.0"
   }
