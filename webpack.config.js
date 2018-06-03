@@ -1,8 +1,6 @@
 'use strict';
 
 const webpack = require('webpack');
-const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -12,13 +10,11 @@ module.exports = {
         filename: "AnimChar.js"
     },
     resolve: {
-        // Add `.ts` and `.tsx` as a resolvable extension.
         extensions: [".ts", ".js"]
     },
     module: {
         rules: [
-            // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-            { test: /\.tsx?$/, loader: "ts-loader" }
+            { test: /\.ts?$/, loader: "ts-loader" }
         ]
     }
 };

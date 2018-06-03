@@ -1,56 +1,96 @@
-import AnimChar from "./plugin"
+import { Scene } from "phaser";
 
-class Boot extends Phaser.Scene {
+interface AnimCharConfig{
+    x:number
+    y:number
+    head:string
+    body:string
+    arm:string
+    leg:string
+}
+class AnimChar extends Phaser.Scene {
 
-    derp: boolean;
+    rightEye: Phaser.GameObjects.Graphics;
+    leftEye: Phaser.GameObjects.Graphics;
+    container: Phaser.GameObjects.Container;
+    leg: Phaser.GameObjects.Sprite;
+    arm: Phaser.GameObjects.Sprite;
+    body: Phaser.GameObjects.Sprite;
+    head: Phaser.GameObjects.Sprite;
+
     create() {
 
-        this.scene.add('xx', AnimChar, true);
+    }
+    boot(){
+        console.log('boot!')
+    }
 
-        let scene = <AnimChar>this.scene.get('xx')
+    render(config:AnimCharConfig) {
 
-        scene.render({ x: 50, y:50, head: 'head' })
+        let graphics = this.add.graphics();
 
-        scene.move(400, 200)
+        graphics.clear();
 
-        this.scene.add('c2', AnimChar, true);
+        graphics.fillStyle(0x9966ff, 1)
+        graphics.fillCircle(10, 10, 20)
 
-        let chara2 = <AnimChar>this.scene.get('c2')
+        this.container = this.add.container(config.x,config.y);
 
-        chara2.render({ x:40, y: 400, head: 'head' })
+        let x = config.x;
+        let y = config.y;
 
-        chara2.move(600, 300)
+        this.head = this.add.sprite(0, 0, config.head)
+        this.body = this.add.sprite(x+50,y+50,config.body)
+        this.arm = this.add.sprite(x-10,y+100,config.arm)
+        this.leg = this.add.sprite(x-10,y+150,config.leg)
+
+        let headContainer = this.add.container(config.x,config.y,this.head)
+
+        let leftEye = this.add.graphics();
+
+        leftEye.fillStyle(0x000000,1);
+        leftEye.fillCircle(10,0,6)
+        leftEye.scaleX = 0.5;
+
+        this.leftEye = leftEye;
+
+        headContainer.add(leftEye);
+
+        let rightEye = this.add.graphics();
+
+        leftEye.fillStyle(0x000000,1);
+        leftEye.fillCircle(40,-1,6)
+        leftEye.scaleX = 0.5;
+
+        this.rightEye = rightEye;
+
+        headContainer.add(rightEye);
+
+        this.container.add([headContainer,this.body,this.arm,this.leg])
 
     }
 
-    update() {
+    move(x: number, y: number) {
 
-        // let scene = <AnimChar>this.scene.get('xx')
-
-        // scene.move(400,200)
-
+        let tween = this.tweens.add({
+            targets: this.container,
+            props: {
+                x: { value: 400, duration: 5000, ease: 'Linear' },
+                y: { value: 300, duration: 1000, ease: 'Bounce.easeInOut', yoyo: true, delay: 1000 }
+            }, delay: 100
+        });
+ 
     }
-
-    init() {
-
-        console.log('main - init!')
-    }
-
-
-    preload() {
-
-        this.load.image('head', './test/assets/head.png');
-
+ 
+    blink(){
+        this.tweens.add({
+         targets : [this.leftEye,this.rightEye],
+         props: {
+             scaleY : { value: 0, duration: 300, ease:'Bounce.easeInOut',yoyo:true}
+         }
+        })
     }
 
 }
 
-const config = {
-    type: Phaser.AUTO,
-    parent: 'game',
-    width: 800,
-    height: 600,
-    scene: [Boot]
-};
-
-let game = new Phaser.Game(config);
+export default AnimChar
